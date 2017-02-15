@@ -1,9 +1,9 @@
 <?php
-require_once "classes/courses.class.php";
-require_once "database_teachers.php";
+require_once "../classes/courses.class.php";
+require_once "../database_teachers.php";
 
 //get all the files within classes as array
-$files = scandir("classes");
+$files = scandir("../classes");
 
 foreach($files as $file){
     // if the file is the reference to this folder
@@ -14,7 +14,7 @@ foreach($files as $file){
     //if the file is a php file 
     if(pathinfo($file, PATHINFO_EXTENSION) == "php"){
         //require the file
-        require_once ("classes/" . $file);
+        require_once ("../classes/" . $file);
     }
 }
 
@@ -34,7 +34,7 @@ foreach ($stmt -> fetchAll() as $value){
 <head>
     <meta charset="UTF-8">
     <title>New courses</title>
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
     <header>
@@ -74,8 +74,11 @@ Teacher:
 <select name="teacher">
     <option value="">---</option>
     <?php
-        foreach ($teachers as $lastname){
+        /*foreach ($teachers as $lastname){
             echo "<option value=$lastname>$lastname</option>";
+        }*/
+        if($_POST["language"] == "English"){
+            echo "<option value='Parsons'>Parsons</option>";
         }
         ?>
 </select>
@@ -106,7 +109,7 @@ Status:
 <br>
 
 </form>
-<a href="index.php">Back to main page</a>
+<a href="../index.php">Back to main page</a>
 
 </body>
 </html>

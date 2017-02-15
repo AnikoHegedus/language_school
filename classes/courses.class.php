@@ -70,7 +70,6 @@ class course{
         $this -> level = $level;
         $this -> status = $status;
         
-    
     }
 
     public function course_start(){

@@ -1,5 +1,5 @@
 .table{
-    width: 50%;
+    width: 75%;
     height: 100%;
     text-align: center;
 }
@@ -11,7 +11,25 @@ header{
     text-align: center;
 }
 
+.header-admin{
+    background-color: lightblue;
+}
+
 body{
     background-color: #ff6;
     
+}
+
+h1{
+    text-align: center;
+}
+
+.button {
+    float: right;
+    margin: 2.5em;
+}
+.button_list{
+    display: flex;
+    justify-content: space-around;
+    margin: 5% 20%;
 }

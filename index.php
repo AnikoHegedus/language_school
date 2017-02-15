@@ -50,6 +50,8 @@ course::calculateOrder();
     <header>
         <h1>My Language School</h1>
     </header>
+    <button class="button" onclick='window.location.href="admin/admin.php"'>For administrators</button>
+    <p>We are a fantastic language school, come study with us!</p>
     <p>Number of courses currently offered: <?php echo course::getNumberOfCourses(); ?></p>
     
     
@@ -85,6 +87,6 @@ course::calculateOrder();
     </tbody> 
     </table>
 <br>
-<a href="form.php">Add a new course</a>
+
 </body>
 </html>

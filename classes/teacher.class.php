@@ -1,8 +1,8 @@
 <?php
 
 class teacher {
-    public $name = "Jane";
-    public $language = "English";
+    public $name = null;
+    public $language = null;
     public $no_courses = 0;
 
     public function start_new_course(){
