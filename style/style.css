@@ -1,0 +1,17 @@
+.table{
+    width: 50%;
+    height: 100%;
+    text-align: center;
+}
+
+header{
+    background-color: #36f;
+    height: 100%;
+    padding: 2em;
+    text-align: center;
+}
+
+body{
+    background-color: #ff6;
+    
+}
