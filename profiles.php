@@ -19,7 +19,7 @@ foreach($files as $file){
 }
 // get teacher's details on the basis of the get method (basically clicking on his name)
 $teachers_name = $_GET["teacher"];
-$stmt = $db -> prepare("SELECT last_name, first_name, language, teaching_experience, motto FROM teachers WHERE last_name = '$teachers_name'");
+$stmt = $db -> prepare("SELECT last_name, first_name, gender, language, teaching_experience, motto FROM teachers WHERE last_name = '$teachers_name'");
 $stmt -> execute();
 
 $teacher_profile = [];
@@ -27,6 +27,7 @@ foreach ($stmt -> fetchAll() as $value){
     
     $teacher_profile["last_name"] = $value["last_name"];
     $teacher_profile["first_name"] = $value["first_name"];
+    $teacher_profile["gender"] = $value["gender"];
     $teacher_profile["language"] = $value["language"];
     $teacher_profile["teaching_experience"] = $value["teaching_experience"];
     $teacher_profile["motto"] = $value["motto"];
@@ -46,9 +47,9 @@ foreach ($stmt -> fetchAll() as $value){
     </header>
 
     <h2>Personal profile of <?php echo $teacher_profile["first_name"] . " " . $teacher_profile["last_name"]; ?></h2>
-        <?php if($teachers_name == "Parsons" || $teachers_name == "Stahl") :?>
+        <?php if($teacher_profile["gender"]=="M") :?>
             <img src="img/male.png" alt="profile photo">
-        <?php elseif($teachers_name == "Girardot") :?>
+        <?php elseif($teacher_profile["gender"]=="F") :?>
             <img src="img/female.png" alt="profile photo">
         <?php endif; ?>
     <p><?php echo "Last name: " . $teacher_profile["last_name"]; ?></p>

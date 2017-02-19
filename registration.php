@@ -18,11 +18,14 @@ foreach($files as $file){
     }
 }
 
-$stmt = $db -> prepare("SELECT language FROM courses");
+// select language and level from database so that students can only register for existing courses
+$stmt = $db -> prepare("SELECT language, level FROM courses");
 $stmt -> execute();
 $languages = [];
+$level = [];
 foreach ($stmt -> fetchAll() as $value){
    $languages[] = $value["language"];
+   $level[] = $value["level"];
 }
 
 ?>
@@ -39,6 +42,11 @@ foreach ($stmt -> fetchAll() as $value){
     <header>
     <h1>My Language School</h1>
 </header>
+<?php
+if($_POST){
+    echo "Thank you for registering, you will be contacted soon.";
+}
+?>
     <h2>I want to register for a course</h2>
     <form action="" method="post">
         Name:<br>
@@ -59,16 +67,13 @@ foreach ($stmt -> fetchAll() as $value){
         Level:<br>
         <select name="level">
             <option value="">---</option>
-            <option value="A1">A1</option>
-            <option value="A2">A2</option>
-            <option value="B1">B1</option>
-            <option value="B2">B2</option>
-            <option value="C1">C1</option>
-            <option value="C2">C2</option>
+            <?php foreach ($level as $value) :?>
+                <?php echo "<option value=$value>$value</option>"; ?>
+            <?php endforeach; ?>
         </select>
         <br>
         <br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" class="button">
     </form>
     <a href="index.php">Back to main page</a>
 </body>

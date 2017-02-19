@@ -1,43 +1,27 @@
 <?php
+session_start();
 require_once "database_courses.php";
 require_once "database_teachers.php";
-
-//get all the files within classes as array
-$files = scandir("classes");
-
-foreach($files as $file){
-    // if the file is the reference to this folder
-    //or the one above, continue
-    if($file == "." || $file == "..")
-    continue;
-    
-    //if the file is a php file 
-    if(pathinfo($file, PATHINFO_EXTENSION) == "php"){
-        //require the file
-        require_once ("classes/" . $file);
-    }
-}
+require_once "classes/courses.class.php";
 
 //MySQL request to see all the courses
-$statement = $db -> prepare("SELECT id, language, no_hours, teacher, level, status FROM courses ORDER BY language, level, id ASC");
+$statement = $db -> prepare("SELECT id, language, no_hours, teacher, level, status, concat(id_course, id) AS 'unique_id' FROM courses ORDER BY language, level, id ASC");
 $statement -> execute();
 
 // Putting courses in an array on the basis of the MySQL request
 // then turning the course array into an object
 $new_course_as_array = [];
 foreach ($statement -> fetchAll() as $value){
-    $new_course_as_array["id"] = $value["id"]; 
+    $new_course_as_array["unique_id"] = $value["unique_id"];  
     $new_course_as_array["language"] = $value["language"]; 
     $new_course_as_array["no_hours"] = $value["no_hours"]; 
     $new_course_as_array["teacher"] = $value["teacher"]; 
     $new_course_as_array["level"] = $value["level"]; 
     $new_course_as_array["status"] = $value["status"]; 
-    $new_course = new course($new_course_as_array["id"], $new_course_as_array["language"], $new_course_as_array["no_hours"],$new_course_as_array["teacher"],$new_course_as_array["level"],$new_course_as_array["status"]);
+    
+    $new_course = new course($new_course_as_array["unique_id"], $new_course_as_array["language"], $new_course_as_array["no_hours"],$new_course_as_array["teacher"],$new_course_as_array["level"],$new_course_as_array["status"]);
 
 }
-course::calculateOrder();
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,18 +29,22 @@ course::calculateOrder();
     <meta charset="UTF-8">
     <title>My language school</title>
     <link rel="stylesheet" href="style/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet"> 
 </head>
 <body>
     <header>
         <h1>My Language School</h1>
     </header>
-    <button class="button" onclick='window.location.href="admin/admin.php"'>For administrators</button>
+    <div class="buttons">
+        <button class="button" onclick='window.location.href="admin/signin_admin.php"'>Administrator login</button>
+        <button class="button" onclick='window.location.href="admin/signup_admin.php"'>Register new administrator</button>
+    </div>
     <p>We are a fantastic language school, come study with us!</p>
     <p>Number of courses currently offered: <?php echo course::getNumberOfCourses(); ?></p>
     
     
-    <p>Please find below the list of our courses</p>
-    <table border=1px; class="table">
+    
+    <table>
         <thead>
             <tr><th>Language</th><th>Level</th><th>Teacher</th><th>Course ID</th><th>Status</th></tr>
         </thead>
@@ -75,7 +63,7 @@ course::calculateOrder();
                     <a href="profiles.php?teacher=<?php echo $course -> teacher; ?>" title="profile of <?php echo $course -> teacher; ?>"><?php echo $course -> teacher; ?></a>
                 </td>
                 <td>
-                    <?php echo $course -> id_course; ?>
+                    <?php echo $course -> id; ?>
                 </td>
                 <td>
                     <!--adding links for future students to register-->

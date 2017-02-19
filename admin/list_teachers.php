@@ -1,7 +1,7 @@
 <?php
-require_once "../classes/courses.class.php";
+/*require_once "../classes/courses.class.php";*/
+require_once "../classes/teacher.class.php";
 require_once "../database_teachers.php";
-
 
 //get all the files within classes as array
 $files = scandir("../classes");
@@ -18,6 +18,7 @@ foreach($files as $file){
         require_once ("../classes/" . $file);
     }
 }
+
 
 // get teacher's details - more detailed than for the "normal" visitors of the page on the basis of the get method (basically clicking on his name)
 
@@ -40,11 +41,21 @@ foreach ($statement -> fetchAll() as $value){
      $courses[] = $value; 
 }
 
+/*$statement = $db -> prepare("SELECT teacher FROM courses WHERE teacher = ?");
+$statement -> execute(["Parsons"]);
+$no_classes_parsons = [];
+foreach ($statement -> fetchAll() as $value){
+     $no_classes_parsons[] = $value; 
+}*/
+
+
+
+
 $no_classes_by_teachers = [];
 $no_classes_parsons = null;
 $no_classes_stahl = null;
 $no_classes_girardot = null;
-/*foreach($courses as $value){
+foreach($courses as $value){
     if($value["teacher"] == "Parsons"){
         $no_classes_parsons++;
         $teacher_profile[0]["no_classes"] = $no_classes_parsons;
@@ -55,8 +66,8 @@ $no_classes_girardot = null;
         $no_classes_girardot++;
         $teacher_profile[2]["no_classes"] = $no_classes_girardot;
     }
-}*/
-
+}
+session_start();
 
 ?>
 <!DOCTYPE html>
@@ -70,11 +81,14 @@ $no_classes_girardot = null;
     <header class="header-admin">
         <h1>My Language School</h1>
         <h2>Admin site</h2>
+        <button class="button logout" onclick='window.location.href="../index.php"'>Logout</button>
+        <div class="hello"><?php require "../shared/header.php"; ?></div>
     </header>
+    <button class="button" onclick='window.location.href="form_teachers.php"'>Register a new teacher</button>
    <h2></h2>
     <table border=1px; class="table">
         <thead>
-            <tr><th>Id</th><th>First name</th><th>Last name</th><th>Language</th><th>Nationality</th><th>Teaching experience</th><th>Motto</th><th>Salary</th><th>No classes currently taught</th></tr>
+            <tr><th>Id</th><th>First name</th><th>Last name</th><th>Gender</th><th>Language</th><th>Nationality</th><th>Teaching experience</th><th>Motto</th><th>Salary</th><th>No classes currently taught</th></tr>
         </thead>
         <tbody>
     <?php foreach($teacher_profile as $teacher) :?>
@@ -87,7 +101,10 @@ $no_classes_girardot = null;
                     <?php echo $teacher["first_name"]; ?>
                 </td>
                 <td>
-                    <?php echo $teacher["last_name"]; ?>
+                    <a href="../profiles.php?teacher=<?php echo $teacher['last_name']; ?>" title="profile of <?php echo $teacher['last_name']; ?>"><?php echo $teacher["last_name"]; ?></a>
+                </td>
+                <td>
+                    <?php echo $teacher["gender"]; ?>
                 </td>
                 <td>
                     <?php echo $teacher["language"]; ?>
@@ -110,11 +127,12 @@ $no_classes_girardot = null;
                  
              </td>            
              <?php endforeach; ?>
-            
+             
         </tr>
          
      </tbody>
     </table>
-    <a href="../index.php">Back to main page</a>
+    <a href="../index.php">Back to main page</a><br>
+    <a href="admin.php">Back to main admin page</a>
 </body>
 </html>

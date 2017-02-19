@@ -1,6 +1,7 @@
 <?php
 require_once "../database_courses.php";
 require_once "../database_teachers.php";
+require_once "../classes/courses.class.php";
 
 
 //get all the files within classes as array
@@ -19,8 +20,11 @@ foreach($files as $file){
     }
 }
 
+session_start();
+
+
 //MySQL request to see all the courses
-$statement = $db -> prepare("SELECT * FROM courses ORDER BY language, level, id ASC");
+$statement = $db -> prepare("SELECT * , concat(id_course, id) AS 'unique_id' FROM courses ORDER BY language, level, id ASC");
 $statement -> execute();
 
 // Putting courses in an array on the basis of the MySQL request
@@ -35,7 +39,6 @@ $no_courses = [];
 foreach ($statement -> fetchAll() as $value){
      $no_courses[] = $value; 
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,6 +51,8 @@ foreach ($statement -> fetchAll() as $value){
     <header class="header-admin">
         <h1>My Language School</h1>
         <h2>Admin site</h2>
+        <button class="button logout" onclick='window.location.href="../index.php"'>Logout</button>
+        <div class="hello"><?php require "../shared/header.php"; ?></div>
     </header>
     <button class="button" onclick='window.location.href="form_courses.php"'>Add a new course</button>
     
@@ -55,9 +60,9 @@ foreach ($statement -> fetchAll() as $value){
     
     
     <p>Please find below the list of our courses</p>
-    <table border=1px; class="table">
+    <table>
         <thead>
-            <tr><th>Language</th><th>Level</th><th>Teacher</th><th>Course ID</th><th>Status</th><th>Number of registered students</th></tr>
+            <tr><th>Language</th><th>Level</th><th>Course ID</th><th>Teacher</th><th>Status</th><th>Number of registered students</th></tr>
         </thead>
         <tbody>
         <!--listing the courses on the basis of the database-->          
@@ -71,10 +76,10 @@ foreach ($statement -> fetchAll() as $value){
                     <?php echo $course["level"]; ?>
                 </td>
                 <td>
-                    <?php echo $course["teacher"]; ?></a>
+                    <?php echo $course["unique_id"]; ?>
                 </td>
                 <td>
-                    <?php echo $course["id_course"]; ?>
+                    <?php echo $course["teacher"]; ?></a>
                 </td>
                 <td>
                     <!--adding links for future students to register-->
@@ -89,6 +94,7 @@ foreach ($statement -> fetchAll() as $value){
     </tbody> 
     </table>
 <br>
-<a href="../index.php">Back to main page</a>
+<a href="../index.php">Back to main page</a><br>
+<a href="admin.php">Back to main admin page</a>
 </body>
 </html>

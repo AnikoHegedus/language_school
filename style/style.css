@@ -1,35 +1,71 @@
-.table{
-    width: 75%;
-    height: 100%;
-    text-align: center;
+body{
+    margin: auto; 
+    padding:0;
+    text-align:center;
+    background-image: url("../img/map.jpg");   
+    background-size: 100%;
+    background-repeat: no-repeat;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 17px;
 }
 
+table{
+    width: 80%;
+    height: 100%;
+    text-align: center;
+    margin: auto;
+    /*color: lightgrey*/;
+    border: 10px solid #B29600;
+    border-style: double;
+}
+
+table td, table th {
+    border: 1px solid black;
+}
+
+
+
 header{
-    background-color: #36f;
+    border-bottom: 5px solid #B29600;
+    background-color: #BB9F7A;
     height: 100%;
     padding: 2em;
     text-align: center;
 }
 
 .header-admin{
-    background-color: lightblue;
+    background-color: #F8BC4C;
+    position: relative;
 }
 
-body{
-    background-color: #ff6;
-    
+.hello{
+    position: absolute;
+    top: 20px;
+    left:20px;
+}
+
+.logout{
+    position: absolute;
+    top: 20px;
+    right:20px;
 }
 
 h1{
     text-align: center;
 }
 
+.buttons{
+    display: flex;
+    justify-content: flex-end;
+}
 .button {
-    float: right;
+
     margin: 2.5em;
+    border: 3px solid #B29600;
 }
 .button_list{
     display: flex;
     justify-content: space-around;
     margin: 5% 20%;
+    border: 3px solid #B29600;
 }
