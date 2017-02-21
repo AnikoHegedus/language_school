@@ -39,7 +39,8 @@ foreach($files as $file){
     <div class="button_list">
         <button onclick='window.location.href="list_teachers.php"' class="button">Database of teachers</button>
         <button onclick='window.location.href="list_courses.php"' class="button">Database of courses</button>
-        <button onclick='window.location.href="students.php"' class="button">Database of students</button>
+       <!-- Possibility to add a new page with info of the students-->
+<!--        <button onclick='window.location.href="students.php"' class="button">Database of students</button>-->
     </div>
     <a href="../index.php">Back to main page</a>
 </body>

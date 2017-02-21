@@ -1,4 +1,4 @@
--- Adminer 4.2.5 MySQL dump
+﻿-- Adminer 4.2.5 MySQL dump
 
 SET NAMES utf8;
 SET time_zone = '+00:00';
@@ -22,7 +22,10 @@ INSERT INTO `courses` (`id`, `language`, `no_hours`, `teacher`, `level`, `status
 (38,	'German',	60,	'Stahl',	'C1',	'On hold',	'C1DE',	0),
 (39,	'German',	180,	'Stahl',	'C1',	'Open for registration',	'C1DE',	0),
 (40,	'French',	120,	'Girardot',	'B1',	'Coming soon',	'B1FR',	0),
-(41,	'English',	60,	'Parsons',	'B1',	'Open for registration',	'B1EN',	0);
+(41,	'English',	60,	'Parsons',	'B1',	'Cancelled',	'B1EN',	0),
+(42,	'French',	60,	'Girardot',	'C1',	'Running',	'C1FR',	0),
+(48,	'English',	120,	'Parsons',	'A1',	'Open for registration',	'A1EN',	0),
+(49,	'English',	120,	'Parsons',	'A1',	'Open for registration',	'A1EN',	0);
 
 DROP TABLE IF EXISTS `teachers`;
 CREATE TABLE `teachers` (
@@ -57,4 +60,4 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
 (1,	'Anna',	'anna@anna.org',	'$2y$10$MiuyvfuGx2lkMDOyoe43EejRy2UDThKuBNYVMKQfJkTMSrZfyyCWS'),
 (3,	'Admin1',	'admin1@admin.org',	'$2y$10$k5xHT4/Vu0Dl4a8ZZ1ynJuY/yx5QUhGW0gs64K.n1ldhv7gPYbxR6');
 
--- 2017-02-20 17:06:37
+-- 2017-02-21 10:00:23

@@ -57,12 +57,10 @@ foreach ($statement -> fetchAll() as $value){
     <button class="button" onclick='window.location.href="form_courses.php"'>Add a new course</button>
     
     <p>Number of courses currently offered: <?php echo $no_courses[0][0]; ?></p>
-    
-    
-    <p>Please find below the list of our courses</p>
+   
     <table>
         <thead>
-            <tr><th>Language</th><th>Level</th><th>Course ID</th><th>Teacher</th><th>Status</th><th>Number of registered students</th></tr>
+            <tr><th>Language</th><th>Level</th><th>Number of hours</th><th>Course ID</th><th>Teacher</th><th>Status</th><th>Number of registered students</th></tr>
         </thead>
         <tbody>
         <!--listing the courses on the basis of the database-->          
@@ -74,6 +72,9 @@ foreach ($statement -> fetchAll() as $value){
                 </td>
                 <td>
                     <?php echo $course["level"]; ?>
+                </td>
+                <td>
+                    <?php echo $course["no_hours"]; ?>
                 </td>
                 <td>
                     <?php echo $course["unique_id"]; ?>

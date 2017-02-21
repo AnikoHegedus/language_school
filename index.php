@@ -41,12 +41,10 @@ foreach ($statement -> fetchAll() as $value){
     </div>
     <p>We are a fantastic language school, come study with us!</p>
     <p>Number of courses currently offered: <?php echo course::getNumberOfCourses(); ?></p>
-    
-    
-    
+
     <table>
         <thead>
-            <tr><th>Language</th><th>Level</th><th>Teacher</th><th>Course ID</th><th>Status</th></tr>
+            <tr><th>Language</th><th>Level</th><th>Number of hours</th><th>Teacher</th><th>Course ID</th><th>Status</th></tr>
         </thead>
         <tbody>
         <!--listing the courses on the basis of the database-->          
@@ -57,6 +55,9 @@ foreach ($statement -> fetchAll() as $value){
                 </td>
                 <td>
                     <?php echo $course -> level; ?>
+                </td>
+                <td>
+                    <?php echo $course -> no_hours; ?>
                 </td>
                 <td>
                     <!--adding links to the personal profiles of the teachers-->

@@ -17,10 +17,7 @@ foreach($files as $file){
         require_once ("../classes/" . $file);
     }
 }
-
-
-
-
+// get the list of courses from the database
 $stmt = $db -> prepare("SELECT first_name, last_name FROM teachers ORDER BY last_name");
 $stmt -> execute();
 $teachers = [];
@@ -57,18 +54,17 @@ if($_POST){
     $course_code = $_POST["level"] . "FR";
     }
     
-
     require_once "../database_courses.php";
-    
+
     $statement = $db -> prepare ("INSERT INTO courses (language, no_hours, teacher, level, status, id_course) VALUES (?, ?, ?, ?, ?, ?)");
     $statement -> execute ([$_POST["language"], $_POST["no_hours"],$_POST["teacher"], $_POST["level"], $_POST["status"], $course_code]);
 
     echo "New course added to the list.";
-    
+      
 }
 ?>
-
-   <h2>Insert a new course</h2> 
+<!--form to enter a new course-->
+<h2>Insert a new course</h2> 
 
 <form action="" method="post">
 Choose a language:
@@ -77,8 +73,6 @@ Choose a language:
     <option value="English">English</option>
     <option value="French">French</option>
     <option value="German">German</option>
-    <option value="Czech">Czech</option><br>
-   
 </select>
 
 <br>
@@ -93,7 +87,8 @@ Number of hours:
 Teacher:
 <select name="teacher" id="teacher">
     <option value="">---</option>
-    
+   <!-- Getting the list of teachers from the array created at the
+    beginning of the file from the database-->
     <?php
            foreach ($teachers as $lastname){
           echo "<option value=$lastname>$lastname</option>";
